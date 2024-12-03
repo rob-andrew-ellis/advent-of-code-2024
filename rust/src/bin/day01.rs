@@ -53,7 +53,7 @@ fn get_similarity_score(list1: &[i32], list2: &[i32]) -> i32 {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let (list1, list2) = read_locations("data.txt")?;
+    let (list1, list2) = read_locations("data/day01.txt")?;
 
     println!(
         "The absolute distance between each location ID is: {}",

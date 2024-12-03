@@ -1,13 +1,6 @@
 def read_reports(file_path: str) -> list[list[int]]:
-    all_reports = []
-
     with open(file_path, "r") as file:
-        for line in file:
-            record = list(map(int, line.split(" ")))
-
-            all_reports.append(record)
-
-    return all_reports
+        return [list(map(int, line.split(" "))) for line in file]
 
 
 def is_safe(report: list[int]) -> bool:

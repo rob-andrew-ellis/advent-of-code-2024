@@ -1,7 +1,7 @@
 import re
 
 
-def read_data(data_path: str) -> str:
+def read_data(data_path: str):
     with open(data_path, "r") as file:
         return file.read()
 
@@ -16,7 +16,7 @@ def mul(data: str) -> int:
 def conditional_mul(data: str) -> int:
     num_pairs = re.findall(r"mul\(\d{1,3},\d{1,3}\)|do\(\)|don\'t\(\)", data)
 
-    muls = []
+    muls: list[str] = []
     do = True
     for condition in num_pairs:
         if condition == "do()":

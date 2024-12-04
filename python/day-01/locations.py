@@ -12,10 +12,10 @@ def read_data(data_path: Path) -> tuple[list[int], list[int]]:
     Returns:
         The data in the form of two lists
     """
-    data = pd.read_csv(data_path)
+    data: pd.DataFrame = pd.read_csv(data_path)
 
-    list1 = data["list1"].tolist()
-    list2 = data["list2"].tolist()
+    list1: list[int] = data["list1"].tolist()
+    list2: list[int] = data["list2"].tolist()
 
     list1 = sorted(list1)
     list2 = sorted(list2)
@@ -33,7 +33,7 @@ def get_distance(list1: list[int], list2: list[int]) -> int:
     Returns:
         Distance between location IDs
     """
-    distances = []
+    distances: list[int] = []
 
     for i in range(len(list1)):
         distances.append(abs(list2[i] - list1[i]))
@@ -69,4 +69,3 @@ if __name__ == "__main__":
 
     print(f"The total distance between the lists is {get_distance(list1, list2)}")
     print(f"The similarity score is {get_similarity_score(list1, list2)}")
-

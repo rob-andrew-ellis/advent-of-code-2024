@@ -13,18 +13,12 @@ def read_data(
 def find_correct_pages(
     rules: list[list[int]], pages: list[list[int]]
 ) -> tuple[int, list[list[int]]]:
-    correct_pages = []
-    incorrect_pages = []
+    correct_pages, incorrect_pages = [], []
     for page in pages:
         changes_made = False
         for i, number in enumerate(page):
-            relevant_rules = []
             for rule in rules:
-                if rule[1] == number:
-                    relevant_rules.append(rule)
-
-            for rule in relevant_rules:
-                if rule[0] in page and page.index(rule[0]) > i:
+                if rule[1] == number and (rule[0] in page and page.index(rule[0]) > i):
                     changes_made = True
                     break
             if changes_made:
@@ -44,13 +38,10 @@ def fix_pages(rules: list[list[int]], pages: list[list[int]]) -> int:
         for page in pages:
             changes_made = False
             for i, number in enumerate(page):
-                relevant_rules = []
                 for rule in rules:
-                    if rule[1] == number:
-                        relevant_rules.append(rule)
-
-                for rule in relevant_rules:
-                    if rule[0] in page and page.index(rule[0]) > i:
+                    if rule[1] == number and (
+                        rule[0] in page and page.index(rule[0]) > i
+                    ):
                         page[page.index(rule[0])], page[page.index(rule[1])] = (
                             page[page.index(rule[1])],
                             page[page.index(rule[0])],

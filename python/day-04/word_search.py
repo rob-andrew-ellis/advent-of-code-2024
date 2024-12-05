@@ -1,10 +1,6 @@
 def read_data(data_path: str) -> list[list[str]]:
-    lines = []
     with open(data_path, "r") as file:
-        for line in file:
-            lines.append(list(line.strip()))
-
-    return lines
+        return [list(line.strip()) for line in file]
 
 
 def part1(data: list[list[str]]) -> int:
@@ -67,12 +63,14 @@ def part2(data: list[list[str]]) -> int:
             if in_bounds(y, x, len(data)):
                 found = 0
                 for corner in corners:
-                    if data[y + corner[0][0]][x + corner[0][1]] == "M":
-                        if data[y + corner[1][0]][x + corner[1][1]] == "S":
-                            found += 1
-                    elif data[y + corner[0][0]][x + corner[0][1]] == "S":
-                        if data[y + corner[1][0]][x + corner[1][1]] == "M":
-                            found += 1
+                    if (
+                        data[y + corner[0][0]][x + corner[0][1]] == "M"
+                        and data[y + corner[1][0]][x + corner[1][1]] == "S"
+                    ) ^ (
+                        data[y + corner[0][0]][x + corner[0][1]] == "S"
+                        and data[y + corner[1][0]][x + corner[1][1]] == "M"
+                    ):
+                        found += 1
                 if found == 2:
                     num_found += 1
 

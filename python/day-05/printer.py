@@ -15,16 +15,15 @@ def find_correct_pages(
 ) -> tuple[int, list[list[int]]]:
     correct_pages, incorrect_pages = [], []
     for page in pages:
-        changes_made = False
-        for i, number in enumerate(page):
-            for rule in rules:
-                if rule[1] == number and (rule[0] in page and page.index(rule[0]) > i):
-                    changes_made = True
-                    break
-            if changes_made:
-                break
+        page_set = set(page)
+        changes_needed = any(
+            rule[0] in page_set
+            and rule[1] in page_set
+            and page.index(rule[0]) > page.index(rule[1])
+            for rule in rules
+        )
 
-        if not changes_made:
+        if not changes_needed:
             correct_pages.append(page)
         else:
             incorrect_pages.append(page)
@@ -36,17 +35,21 @@ def fix_pages(rules: list[list[int]], pages: list[list[int]]) -> int:
     fixed_pages = []
     while len(pages) > 0:
         for page in pages:
+            page_set = set(page)
+
             changes_made = False
-            for i, number in enumerate(page):
-                for rule in rules:
-                    if rule[1] == number and (
-                        rule[0] in page and page.index(rule[0]) > i
-                    ):
-                        page[page.index(rule[0])], page[page.index(rule[1])] = (
-                            page[page.index(rule[1])],
-                            page[page.index(rule[0])],
-                        )
-                        changes_made = True
+            for rule in rules:
+                if (
+                    rule[0] in page_set
+                    and rule[1] in page_set
+                    and page.index(rule[0]) > page.index(rule[1])
+                ):
+                    page[page.index(rule[0])], page[page.index(rule[1])] = (
+                        page[page.index(rule[1])],
+                        page[page.index(rule[0])],
+                    )
+                    changes_made = True
+
             if not changes_made:
                 fixed_pages.append(page)
                 pages.remove(page)

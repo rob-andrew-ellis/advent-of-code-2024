@@ -28,7 +28,7 @@ def find_correct_pages(
         else:
             incorrect_pages.append(page)
 
-    return (sum([page[len(page) // 2] for page in correct_pages]), incorrect_pages)
+    return sum([page[len(page) // 2] for page in correct_pages]), incorrect_pages
 
 
 def fix_pages(rules: list[list[int]], pages: list[list[int]]) -> int:
